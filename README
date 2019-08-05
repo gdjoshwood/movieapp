@@ -1,0 +1,6 @@
+# Movie App 🎬
++ `yarn install`
++ Create a `.env` in the root of your project
+    - Add `MOVIE_DB_API_ROOT=https://api.themoviedb.org/3/`
+    - Add `MOVIE_DB_API_KEY=<your-api-key>`
++ `yarn start`
