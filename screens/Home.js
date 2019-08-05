@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Image,
   Platform,
@@ -8,11 +8,17 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 
 export default function Home() {
+
+  useEffect(() => {
+    console.log('comp')
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -30,18 +36,10 @@ export default function Home() {
         </View>
 
         <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.HomeFilename]}>
-            <MonoText>screens/Home.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
+        <FlatList
+            data={[{key: 'a'}, {key: 'b'}]}
+            renderItem={({item}) => <Text>{item.key}</Text>}
+          />
         </View>
 
         <View style={styles.helpContainer}>
@@ -52,19 +50,6 @@ export default function Home() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
     </View>
   );
 }
