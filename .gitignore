@@ -11,5 +11,5 @@ web-build/
 web-report/
 .env
 android/app/build/*
-.gradle
-build/
+android/.gradle
+android/app/build
