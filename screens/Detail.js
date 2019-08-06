@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { ScrollView, StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import {detailData} from '../api/get';
-MOVIE_DB_CDN_ROOT = 'https://image.tmdb.org/t/p/w500'
+import {MOVIE_DB_CDN_ROOT} from 'react-native-dotenv';
 
 const emptyState = () => (<View>
   Fetching Data...

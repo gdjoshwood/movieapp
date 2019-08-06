@@ -13,7 +13,7 @@ import {
 
 import { MonoText } from '../components/StyledText';
 import {popularData} from '../api/get';
-MOVIE_DB_CDN_ROOT = 'https://image.tmdb.org/t/p/w500'
+import {MOVIE_DB_CDN_ROOT} from 'react-native-dotenv';
 
 const _keyExtractor = item => (`${item.id}`);
 const emptyState = () => (<View>

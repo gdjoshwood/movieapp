@@ -1,10 +1,5 @@
-//import Config from "react-native-config";
-let Config = {
-  MOVIE_DB_API_ROOT: "https://api.themoviedb.org/3/",
-  
+import {MOVIE_DB_API_ROOT, MOVIE_DB_API_KEY} from 'react-native-dotenv';
 
-}
-console.log('?', Config)
 export function popularData () {
   return fetch(`${Config.MOVIE_DB_API_ROOT}movie/popular?api_key=${Config.MOVIE_DB_API_KEY}`)
     .then((response) => response.json())
@@ -15,6 +10,7 @@ export function popularData () {
       console.error(error);
     });
 }
+
 
 export function detailData (movieId) {
   return fetch(`${Config.MOVIE_DB_API_ROOT}movie/${movieId}?api_key=${Config.MOVIE_DB_API_KEY}`)
