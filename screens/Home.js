@@ -1,5 +1,5 @@
-import * as WebBrowser from 'expo-web-browser';
-import React, {useEffect} from 'react';
+
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   Platform,
@@ -12,11 +12,27 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
+import {popularData} from '../api/get';
+MOVIE_DB_CDN_ROOT = 'https://image.tmdb.org/t/p/w500'
 
-export default function Home() {
+const _keyExtractor = item => (`${item.id}`);
+const emptyState = () => (<View>
+  Fetching Data...
+</View>);
 
+const hydratedState = props => (<View>
+
+</View>);
+
+export default function Home ({navigation}) {
+  const [movies, setMovies] = useState([]);
+  async function hydrate() {
+    const responsePopular = await popularData();
+    const movies = responsePopular.results;
+    setMovies(movies);
+  }
   useEffect(() => {
-    console.log('comp')
+    hydrate();
   }, [])
 
   return (
@@ -24,30 +40,23 @@ export default function Home() {
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
 
         <View style={styles.getStartedContainer}>
         <FlatList
-            data={[{key: 'a'}, {key: 'b'}]}
-            renderItem={({item}) => <Text>{item.key}</Text>}
+          data={movies}
+          keyExtractor={_keyExtractor}
+          renderItem={({item}) => 
+            <TouchableOpacity key={item.id} 
+              onPress={() => {
+                navigation.navigate('Detail', {movieId: item.id})
+              }}>
+              <View>
+                <Text>{item.title}</Text>
+                <Image style={{width: '100%', height: 200}} source={{uri: `${MOVIE_DB_CDN_ROOT}${item.poster_path}`}}/>
+                
+              </View>
+            </TouchableOpacity>}
           />
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -56,42 +65,9 @@ export default function Home() {
 
 Home.navigationOptions = {
   header: null,
+  tabBarVisible: false
 };
 
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
 
 const styles = StyleSheet.create({
   container: {

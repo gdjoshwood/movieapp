@@ -31,6 +31,8 @@ target 'MovieApp' do
 
   use_unimodules!
 
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
   target 'MovieAppTests' do
     inherit! :search_paths
   end

@@ -42,7 +42,7 @@ const DetailStack = createStackNavigator(
 );
 
 DetailStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Detail',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
