@@ -26,8 +26,12 @@
     "ios": {
       "supportsTablet": true
     },
-    "entryPoint": "node_modules/expo/AppEntry.js"
+    "entryPoint": "node_modules/expo/AppEntry.js",
+    "android": {
+      "package": "com.movieapp.movieapp"
+    },
   },
+
   "displayName": "Movie App",
   "name": "MovieApp"
 }
