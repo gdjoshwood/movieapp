@@ -21,16 +21,19 @@ export default function Detail ({navigation}) {
 
   useEffect(() => {
     hydrate();
-  }, []);
-
+    return () => {
+      setDetail({});
+    }
+  }, [movieId]);
+  const hasData = (detail.title);
   return (<View style={styles.container}>   
 
-      <ScrollView style={styles.container}>
-        <Text>{detail.title}</Text>
-        <Image style={{width: '100%', height: 200}} source={{uri: `${MOVIE_DB_CDN_ROOT}${detail.poster_path}`}}/>
-        <Text>{detail.release_date}</Text>
-        <Text>{detail.overview}</Text>
-      </ScrollView>
+      {hasData && <ScrollView style={styles.container}>
+        <Text style={styles.heading}>{detail.title}</Text>        
+        <Text style={styles.releaseDate}>Release Date {new Date(detail.release_date).toLocaleString('en-US')}</Text>
+        <Text style={styles.overview}>{detail.overview}</Text>
+        <Image style={styles.poster} source={{uri: `${MOVIE_DB_CDN_ROOT}${detail.poster_path}`}}/>
+      </ScrollView>}
     </View>
   );
 }
@@ -46,6 +49,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
+    backgroundColor: '#222',
   },
+  heading: {
+    textAlign: 'center',
+    fontSize: 30,
+    color: '#fafafa',
+    textShadowColor: '#000',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 2
+  },
+  poster: {
+    width: '100%',
+    height: 800,
+    resizeMode: 'contain',
+    marginBottom: 20
+  },
+  releaseDate: {
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+    color: '#C0AC1B',
+    textAlign: 'center',
+    textShadowColor: '#000',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 2,
+    marginBottom: 20
+  },
+  overview: {
+    textAlign: 'justify',
+    letterSpacing: 2,
+    color: '#fafafa',
+    fontSize: 20,
+    textShadowColor: '#000',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 2
+  }
 });
