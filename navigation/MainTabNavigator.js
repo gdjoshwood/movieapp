@@ -19,17 +19,8 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
+
+  tabBarVisible: false
 };
 
 HomeStack.path = '';
@@ -42,10 +33,8 @@ const DetailStack = createStackNavigator(
 );
 
 DetailStack.navigationOptions = {
-  tabBarLabel: 'Detail',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
+  
+  tabBarVisible: false
 };
 
 DetailStack.path = '';

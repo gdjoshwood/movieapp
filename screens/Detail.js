@@ -3,13 +3,8 @@ import { ScrollView, StyleSheet, View, TouchableOpacity, Text, Image } from 'rea
 import {detailData} from '../api/get';
 import {MOVIE_DB_CDN_ROOT} from 'react-native-dotenv';
 
-const emptyState = () => (<View>
-  Fetching Data...
-</View>);
+import {formatDate} from '../utils/date';
 
-const hydratedState = props => (<View>
-
-</View>);
 export default function Detail ({navigation}) {
   const movieId = navigation.getParam('movieId');
   const [detail, setDetail] = useState({});
@@ -27,9 +22,14 @@ export default function Detail ({navigation}) {
   }, [movieId]);
   const hasData = (detail.title);
   return (<View style={styles.container}>   
+      <TouchableOpacity onPress={() => {
+          navigation.navigate('Home')
+        }}>
+        <Text style={styles.backNav}>Back</Text>
+      </TouchableOpacity>
       {hasData && <ScrollView style={styles.container}>
         <Text style={styles.heading}>{detail.title}</Text>        
-        <Text style={styles.releaseDate}>Release Date {new Date(detail.release_date).toLocaleString('en-US')}</Text>
+        <Text style={styles.releaseDate}>Release Date {formatDate(new Date(detail.release_date))}</Text>
         <Text style={styles.overview}>{detail.overview}</Text>
         <Image style={styles.poster} source={{uri: `${MOVIE_DB_CDN_ROOT}${detail.poster_path}`}}/>
       </ScrollView>}
@@ -44,11 +44,19 @@ Detail.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-  backNav: {flex: 1},
+  backNav: {
+    color: "#fafafa",
+    marginTop: 20,
+    fontSize: 20,
+    textShadowColor: '#000',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 2
+  },
   container: {
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#222',
+
   },
   heading: {
     textAlign: 'center',
