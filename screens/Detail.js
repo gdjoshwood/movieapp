@@ -27,7 +27,6 @@ export default function Detail ({navigation}) {
   }, [movieId]);
   const hasData = (detail.title);
   return (<View style={styles.container}>   
-
       {hasData && <ScrollView style={styles.container}>
         <Text style={styles.heading}>{detail.title}</Text>        
         <Text style={styles.releaseDate}>Release Date {new Date(detail.release_date).toLocaleString('en-US')}</Text>
